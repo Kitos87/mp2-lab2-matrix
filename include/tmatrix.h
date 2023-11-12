@@ -309,20 +309,27 @@ public:
 
   size_t size() const noexcept { return sz; }
   // ввод/вывод
-  friend istream& operator>>(istream& istr, TDynamicMatrix& v)
-  {
-      for (int i = 0; i < v.sz; i++) {
-          istr >> v.pMem[i];
+  // Оператор ввода для TDynamicMatrix
+  friend istream& operator>>(istream& istr, TDynamicMatrix& m) {
+      for (size_t i = 0; i < m.sz; i++) {
+          for (size_t j = 0; j < m.pMem[i].size(); j++) {
+              istr >> m.pMem[i][j];
+          }
       }
       return istr;
   }
-  friend ostream& operator<<(ostream& ostr, const TDynamicMatrix& v)
-  {
-      for (int i = 0; i < v.sz; i++) {
-          ostr << v.pMem[i] << endl;
+
+  // Оператор вывода для TDynamicMatrix
+  friend ostream& operator<<(ostream& ostr, const TDynamicMatrix& m) {
+      for (size_t i = 0; i < m.sz; i++) {
+          for (size_t j = 0; j < m.pMem[i].size(); j++) {
+              ostr << m.pMem[i][j] << ' ';
+          }
+          ostr << endl;
       }
       return ostr;
   }
+
 };
 
 #endif
